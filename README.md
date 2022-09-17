@@ -1,15 +1,16 @@
 # Trabajo Práctico - 1er. Parcial
+
 ## Sistema de Seguimiento de Pacientes
+
 ### Integrantes
 
-- Francisco Candia
-- Fabrizio Coscia
-- Maximiliano Duré
-- Mateo Fidabel
+-   Valentina Cano
+-   Sergio Espinola
+-   Cesar Rodas
 
 ## Requerimientos
 
-- Angular CLI: `npm install @angular/cli -g`
+-   Angular CLI: `npm install @angular/cli -g`
 
 ## Instrucciones para el desarrollador
 
