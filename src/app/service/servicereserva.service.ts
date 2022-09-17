@@ -11,8 +11,8 @@ import BASE_URL from './base_url';
     providedIn: 'root',
 })
 export class ServicereservaService {
-    private api: string = BASE_URL + '/stock-pwfe/reserva';
-    private agenda: string = BASE_URL + '/stock-pwfe/persona';
+    private api: string = BASE_URL + '/stock-nutrinatalia/reserva';
+    private agenda: string = BASE_URL + '/stock-nutrinatalia/persona';
 
     constructor(private http: HttpClient) {}
 
@@ -38,7 +38,7 @@ export class ServicereservaService {
         like: string
     ): Observable<listadatos<Persona>> {
         return this.http.get<listadatos<Persona>>(
-            'http://181.123.243.5:8080/stock-pwfe/persona',
+            'https://equipoyosh.com/stock-nutrinatalia/persona',
             {
                 params: { ejemplo: JSON.stringify(params), like: like },
             }
@@ -52,7 +52,7 @@ export class ServicereservaService {
         const ejemplo = { ...params, soloUsuariosDelSistema: true };
 
         return this.http.get<listadatos<Persona>>(
-            'http://181.123.243.5:8080/stock-pwfe/persona',
+            'https://equipoyosh.com/stock-nutrinatalia/persona',
             {
                 params: {
                     ejemplo: JSON.stringify(ejemplo),

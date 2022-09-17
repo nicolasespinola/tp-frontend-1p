@@ -11,8 +11,8 @@ import { Persona } from '../model/persona';
     providedIn: 'root',
 })
 export class HorarioAgendaService {
-    private api: string = BASE_URL + '/stock-pwfe/personaHorarioAgenda';
-    private apiPersonas: string = BASE_URL + '/stock-pwfe/persona';
+    private api: string = BASE_URL + '/stock-nutrinatalia/personaHorarioAgenda';
+    private apiPersonas: string = BASE_URL + '/stock-nutrinatalia/persona';
 
     constructor(private http: HttpClient) {}
 

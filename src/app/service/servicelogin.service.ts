@@ -9,7 +9,7 @@ import { Persona } from '../model/persona';
 })
 export class ServiceloginService {
     private api: string =
-        'http://181.123.243.5:8080/stock-pwfe/persona?ejemplo=%7B%22soloUsuariosDelSistema%22%3Atrue%7D';
+        'https://equipoyosh.com/stock-nutrinatalia/persona?ejemplo=%7B%22soloUsuariosDelSistema%22%3Atrue%7D';
 
     constructor(private http: HttpClient) {}
 

@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class ServicetipoProductoService {
-    private api: string = BASE_URL + '/stock-pwfe/tipoProducto';
+    private api: string = BASE_URL + '/stock-nutrinatalia/tipoProducto';
     constructor(private http: HttpClient) {}
 
     gettipoProductos(): Observable<listadatos<tipoProducto>> {
@@ -31,7 +31,7 @@ export class ServicetipoProductoService {
 
     getCategorias(): Observable<listadatos<Categoria>> {
         return this.http.get<listadatos<Categoria>>(
-            BASE_URL + '/stock-pwfe/categoria'
+            BASE_URL + '/stock-nutrinatalia/categoria'
         );
     }
 

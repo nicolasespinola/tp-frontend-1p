@@ -14,10 +14,11 @@ import ServicioDetalle, {
     providedIn: 'root',
 })
 export class ServiciosService {
-    private api: string = BASE_URL + '/stock-pwfe/servicio';
+    private api: string = BASE_URL + '/stock-nutrinatalia/servicio';
     private apiPresentacion: string =
-        BASE_URL + '/stock-pwfe/presentacionProducto';
-    private apiExistencia: string = BASE_URL + '/stock-pwfe/existenciaProducto';
+        BASE_URL + '/stock-nutrinatalia/presentacionProducto';
+    private apiExistencia: string =
+        BASE_URL + '/stock-nutrinatalia/existenciaProducto';
     private apiDetalle = (idServicio: number) =>
         `${this.api}/${idServicio}/detalle`;
     private apiDetalleID = (idServicio: number, idDetalle: number) =>

@@ -11,8 +11,8 @@ import BASE_URL from './base_url';
     providedIn: 'root',
 })
 export class HorarioExcepcionService {
-    private api: string = BASE_URL + '/stock-pwfe/horarioExcepcion';
-    private apiPersonas: string = BASE_URL + '/stock-pwfe/persona';
+    private api: string = BASE_URL + '/stock-nutrinatalia/horarioExcepcion';
+    private apiPersonas: string = BASE_URL + '/stock-nutrinatalia/persona';
 
     constructor(private http: HttpClient) {}
 
