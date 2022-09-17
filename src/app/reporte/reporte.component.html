@@ -1,0 +1,208 @@
+<div class="container px-5 py-5">
+    <h4 class="mb-5">Reporte de Servicios</h4>
+    <h5 class="mb-2">Filtros de búsqueda</h5>
+    <form [formGroup]="fechas">
+        <div class="row mb-4">
+            <div class="col">
+                <label for="fechaDesde" class="form-label">Fecha desde</label>
+                <input
+                    type="date"
+                    id="fechaDesde"
+                    class="form-control"
+                    formControlName="desde"
+                    value="{{ fechas.value.desde }}"
+                />
+            </div>
+            <div class="col">
+                <label for="fechaHasta" class="form-label">Fecha hasta</label>
+                <input
+                    type="date"
+                    id="fechaHasta"
+                    class="form-control"
+                    formControlName="hasta"
+                    value="{{ fechas.value.hasta }}"
+                />
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-sm">
+                <label for="empleado" class="form-label">Empleado</label>
+                <div class="d-flex">
+                    <input
+                        id="empleado"
+                        type="text"
+                        class="form-control me-3"
+                        readonly
+                        value="{{ empleadoSeleccionado?.nombreCompleto }}"
+                    />
+                    <button
+                        class="btn btn-info"
+                        (click)="open(busquedaProfesional)"
+                        type="button"
+                    >
+                        Buscar
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm">
+                <label for="paciente" class="form-label">Paciente</label>
+                <div class="d-flex">
+                    <input
+                        id="paciente"
+                        type="text"
+                        class="form-control me-3"
+                        readonly
+                        value="{{ pacienteSeleccionado?.nombreCompleto }}"
+                    />
+                    <button
+                        class="btn btn-info"
+                        (click)="open(busquedaPaciente)"
+                        type="button"
+                    >
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary me-2" (click)="filtrar()">
+                Buscar
+            </button>
+            <button
+                class="btn btn-outline-primary"
+                type="button"
+                (click)="limpiar()"
+            >
+                Limpiar
+            </button>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col">
+            <table id="reporte" #reporte class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Profesional</th>
+                        <th>Cliente</th>
+                        <th>Presupuesto</th>
+                        <th>Subcategoría</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let s of servicios">
+                        <td>{{ s.fechaHora }}</td>
+                        <td>
+                            {{ s.idFichaClinica.idEmpleado.nombreCompleto }}
+                        </td>
+                        <td>{{ s.idFichaClinica.idCliente.nombreCompleto }}</td>
+                        <td>{{ s.presupuesto }}</td>
+                        <td>
+                            {{ s.idFichaClinica.idTipoProducto.descripcion }}
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button class="btn btn-info" (click)="exportexcel()" type="button">
+        Descargar Excel
+    </button>
+    &nbsp;
+    <button class="btn btn-info" (click)="exportpdf()" type="button">
+        Descargar PDF
+    </button>
+</div>
+
+<ng-template #busquedaProfesional let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Buscar profesionales</h4>
+    </div>
+    <div class="modal-body">
+        <label for="nombre" class="form-label">Nombre</label>
+        <div class="container d-flex mb-4">
+            <form [formGroup]="buscadorPersona" class="d-flex">
+                <input
+                    type="text"
+                    id="nombre"
+                    class="form-control me-2"
+                    formControlName="nombre"
+                    (change)="buscarEmpleado()"
+                />
+                <button class="btn btn-info">Buscar</button>
+            </form>
+        </div>
+        <div class="container" *ngIf="empleados.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let persona of empleados">
+                        <td>
+                            {{ persona.nombreCompleto }}
+                        </td>
+                        <td>
+                            <button
+                                class="btn btn-outline-success"
+                                (click)="seleccionarEmpleado(persona)"
+                            >
+                                <i class="bi bi-check-lg"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #busquedaPaciente let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Buscar pacientes</h4>
+    </div>
+    <div class="modal-body">
+        <label for="nombre" class="form-label">Nombre</label>
+        <div class="container d-flex mb-4">
+            <form [formGroup]="buscadorPersona" class="d-flex">
+                <input
+                    type="text"
+                    id="nombre"
+                    class="form-control me-2"
+                    formControlName="nombre"
+                    (change)="buscarPaciente()"
+                />
+                <button class="btn btn-info">Buscar</button>
+            </form>
+        </div>
+        <div class="container" *ngIf="pacientes.length > 0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let persona of pacientes">
+                        <td>
+                            {{ persona.nombreCompleto }}
+                        </td>
+                        <td>
+                            <button
+                                class="btn btn-outline-success"
+                                (click)="seleccionarCliente(persona)"
+                            >
+                                <i class="bi bi-check-lg"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-template>

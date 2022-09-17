@@ -1,0 +1,37 @@
+* {
+    font-family: "Sora";
+}
+
+button {
+    width: 120px;
+}
+
+.btn-outline-primary {
+    color: #fff;
+    background-color: #4421d2;
+    background-image: none;
+    border-color: #4421d2;
+    margin-right: 4px;
+    border-width: 2px;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #4421d27d;
+    background-image: none;
+    border-color: #4421d2;
+    border-width: 2px;
+}
+
+.btn-outline-secondary {
+    color: #ff1b1c !important;
+    border-color: #ff1b1c !important;
+    border-width: 2px;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff !important;
+    background-color: #ff1b1c !important;
+    border-color: #ff1b1c !important;
+    border-width: 2px;
+}

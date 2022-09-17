@@ -1,0 +1,8 @@
+.botonAccion {
+    color: blue;
+    cursor: pointer;
+}
+
+.botonAccion:hover {
+    text-decoration: underline;
+}

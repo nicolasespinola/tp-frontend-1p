@@ -1,0 +1,71 @@
+<div class="modal-header">
+    <h4 class="modal-title">Agregar Servicio</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cerrar')"></button>
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <!-- Observación -->
+        <div class="row my-3">
+            <div class="col">
+                <div class="input-group">
+                    <div class="input-group-text">Observación*</div>
+                    <input class="form-control" name="obs" [formControl]="observacion">
+                </div>
+            </div>
+        </div>
+        <!-- Ficha Clínica (Viene precargada)-->
+        <div class="row my-3" *ngIf="ficha !== undefined">
+            <div class="col">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID Ficha</th>
+                        <th>Fecha</th>
+                        <th>Categoría</th>
+                        <th>Subcategoría</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngIf="ficha !== undefined">
+                        <td>{{ficha.idFichaClinica}}</td>
+                        <td>{{ficha.fechaHora}}</td>
+                        <td>{{ficha.idTipoProducto.idCategoria.descripcion}}</td>
+                        <td>{{ficha.idTipoProducto.descripcion}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Se va a elegir la ficha -->
+        <div class="row my-3" *ngIf="ficha === undefined">
+            <div class="col">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID Ficha</th>
+                        <th>Fecha</th>
+                        <th>Categoría</th>
+                        <th>Subcategoría</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let f of fichas">
+                        <td>{{f.idFichaClinica}}</td>
+                        <td>{{f.fechaHora}}</td>
+                        <td>{{f.idTipoProducto.idCategoria.descripcion}}</td>
+                        <td>{{f.idTipoProducto.descripcion}}</td>
+                        <td><input class="form-check-input" type="radio"
+                                   (click)="setearFicha(f)"
+                                   [checked]="fichaServicio !== undefined && fichaServicio.idFichaClinica === f.idFichaClinica"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" (click)="crearServicio()" [disabled]="(!ficha && fichaServicio === undefined)">Agregar servicio</button>
+    <button (click)="activeModal.close('Cancelar')" class="btn btn-secondary m-3">Cancelar</button>
+</div>

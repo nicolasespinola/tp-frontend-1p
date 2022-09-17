@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h4 class="modal-title">Agregar Horario de Agenda</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cerrar')"></button>
+</div>
+<div class="modal-body">
+  <form class="container-fluid">
+    <div class="row my-3">
+      <label class="form-label">Dia*</label>
+      <select class="form-select" name="dia" [(ngModel)]="horarioAgenda.dia" required>
+          <option disabled>Elegir un dia</option>
+          <option *ngFor="let d of dias" [value]="d">{{ d | getDiaFormateado }}</option>
+      </select>
+    </div>
+    <div class="row my-3">
+      <label class="form-label">Hora de Apertura*</label>
+      <input type="time" class="form-control" name="apertura" required [value]="horarioAgenda.horaAperturaCadena | getHoraFormateda"
+        (change)="cambiarHoraInicio">
+    </div>
+    <div class="row my-3">
+      <label class="form-label">Hora de Cierre*</label>
+      <input type="time" class="form-control" name="cierre" required [value]="horarioAgenda.horaCierreCadena | getHoraFormateda"
+             (change)="cambiarHoraCierre">
+    </div>
+    <div class="row my-3">
+      <label class="form-label">Intervalo de minutos*</label>
+      <input type="number" class="form-control" name="intervalo" required [(ngModel)]="horarioAgenda.intervaloMinutos" min="1">
+    </div>
+    <div class="row my-3">
+      <label class="form-label">Fisioterapeuta*</label>
+      <input name="fisioterapeuta" class="form-control" list="listaFisio" [(ngModel)]="horarioAgenda.idEmpleado.idPersona">
+      <datalist id="listaFisio">
+        <option [value]="f.idPersona" *ngFor="let f of fisioterapeutas">{{f.nombre}} {{f.apellido}}</option>
+      </datalist>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button (click)="agregar()" class="btn btn-primary m-3">Agregar</button>
+  <button (click)="activeModal.close('Cancelar')" class="btn btn-secondary m-3">Cancelar</button>
+</div>

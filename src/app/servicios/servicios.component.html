@@ -1,0 +1,22 @@
+<div class="container px-5 py-5">
+    <!-- Titulo -->
+
+    <h4>Servicios</h4>
+
+    <!-- Filtros -->
+    <app-filtros-servicios
+        (onFiltrarServicios)="filtrarServicios($event)"
+        (onCrearServicio)="crearServicio()"
+    >
+    </app-filtros-servicios>
+    <!-- Listado -->
+    <div class="row">
+        <div class="col">
+            <app-listado-servicios
+                [servicios]="servicios"
+                (onVerServicio)="verServicio($event)"
+            >
+            </app-listado-servicios>
+        </div>
+    </div>
+</div>

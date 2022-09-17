@@ -1,0 +1,39 @@
+<div *ngIf="fichas.length > 0" class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>Fecha</td>
+                <td>Profesional</td>
+                <td>Cliente</td>
+                <td>Categoria</td>
+                <td>Subcategoria</td>
+                <td>Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ficha of fichas">
+                <th scope="row">{{ ficha.fechaHora }}</th>
+                <td>
+                    {{ ficha.idEmpleado.nombre }}
+                    {{ ficha.idEmpleado.apellido }}
+                </td>
+                <td>
+                    {{ ficha.idCliente.nombre }} {{ ficha.idCliente.apellido }}
+                </td>
+                <td>{{ ficha.idTipoProducto.idCategoria.descripcion }}</td>
+                <td>{{ ficha.idTipoProducto.descripcion }}</td>
+                <td>
+                    <span
+                        class="botonAccion"
+                        (click)="onCrearServicio.emit(ficha)"
+                        >Crear servicio</span
+                    >
+                    /
+                    <span class="botonAccion" (click)="modificarFicha(ficha)"
+                        >Modificar</span
+                    >
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

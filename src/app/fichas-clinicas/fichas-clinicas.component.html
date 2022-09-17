@@ -1,0 +1,150 @@
+<div class="container px-5 py-5">
+    <div class="row">
+        <div class="d-flex flex-wrap justify-content-between">
+            <div>
+                <h4>Fichas Clínicas</h4>
+                <p>Revisa las fichas clínicas de los pacientes</p>
+            </div>
+            <div>
+                <button
+                    class="btn btn-success"
+                    (click)="abrirFormularioAgregarFicha()"
+                >
+                    <i class="bi bi-plus-lg me-2"></i>Nueva ficha
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Filtros de la tabla -->
+    <div class="row my-3">
+        <h5>Filtros</h5>
+    </div>
+    <!-- Filtros de fecha -->
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <div class="input-group-text">Fecha desde</div>
+                <input
+                    type="date"
+                    name="fechaDesde"
+                    class="form-control"
+                    [formControl]="filtroFechaDesde"
+                />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <div class="input-group-text">Fecha hasta</div>
+                <input
+                    type="date"
+                    name="fechaHasta"
+                    class="form-control"
+                    [formControl]="filtroFechaHasta"
+                />
+            </div>
+        </div>
+    </div>
+    <!-- Filtros de personas -->
+    <div class="row my-3">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <div class="input-group-text">Empleado</div>
+                <input
+                    name="empleadoFiltro"
+                    class="form-control"
+                    list="listaEmpleadosFiltro"
+                    [formControl]="filtroEmpleado"
+                />
+                <datalist id="listaEmpleadosFiltro">
+                    <option *ngFor="let p of empleados" [value]="p.idPersona">
+                        {{ p.nombre }} {{ p.apellido }}
+                    </option>
+                </datalist>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="input-group">
+                <div class="input-group-text">Cliente</div>
+                <input
+                    name="clienteFiltro"
+                    class="form-control"
+                    list="listaClientesFiltro"
+                    [formControl]="filtroCliente"
+                />
+                <datalist id="listaClientesFiltro">
+                    <option *ngFor="let p of clientes" [value]="p.idPersona">
+                        {{ p.nombre }} {{ p.apellido }}
+                    </option>
+                </datalist>
+            </div>
+        </div>
+    </div>
+    <!-- Filtros de categoria y subcategoria -->
+    <div class="row my-3">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <div class="input-group-text">Categoría</div>
+                <input
+                    name="empleadoFiltro"
+                    class="form-control"
+                    (change)="filtrarSubcategorias()"
+                    list="listaCategoriaFiltro"
+                    [formControl]="filtroCategoria"
+                />
+                <datalist id="listaCategoriaFiltro">
+                    <option
+                        *ngFor="let c of categorias"
+                        [value]="c.idCategoria"
+                    >
+                        {{ c.descripcion }}
+                    </option>
+                </datalist>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="input-group">
+                <div class="input-group-text">Subcategoría</div>
+                <input
+                    name="clienteFiltro"
+                    class="form-control"
+                    list="listaSubcategoriaFiltro"
+                    [formControl]="filtroSubcategoria"
+                />
+                <datalist id="listaSubcategoriaFiltro">
+                    <option
+                        *ngFor="let s of subcategorias"
+                        [value]="s.idTipoProducto"
+                    >
+                        {{ s.descripcion }}
+                    </option>
+                </datalist>
+            </div>
+        </div>
+    </div>
+    <!-- Botones de filtro -->
+    <div class="d-flex justify-content-end">
+        <!-- <button
+                class="btn btn-success me-3"
+                (click)="abrirFormularioAgregarFicha()"
+            >
+                Agregar
+            </button> -->
+        <button class="btn btn-primary me-3" (click)="filtrar()">
+            Filtrar
+        </button>
+        <button class="btn btn-outline-primary" (click)="limpiarFiltro()">
+            Limpiar
+        </button>
+    </div>
+    <!-- Tabla de Fichas -->
+    <div class="row my-3">
+        <app-tabla-fichas
+            [fichas]="fichas"
+            (onModificarFicha)="abrirFormularioModificarFicha($event)"
+            (onCrearServicio)="abrirFormularioAgregarServicio($event)"
+        >
+        </app-tabla-fichas>
+    </div>
+</div>

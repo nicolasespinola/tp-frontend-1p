@@ -1,0 +1,41 @@
+<div class="row my-3">
+    <!-- Filtrar por dia -->
+    <div class="col-sm-6">
+        <div class="input-group">
+            <div class="input-group-text">Dia</div>
+            <select
+                class="form-select"
+                name="diaFiltro"
+                [(ngModel)]="horarioFiltro.dia"
+            >
+                <option disabled>No filtrar</option>
+                <option [value]="d" *ngFor="let d of dias">
+                    {{ d | getDiaFormateado }}
+                </option>
+            </select>
+        </div>
+    </div>
+    <!-- Filtrar por Empleado -->
+    <div class="col-sm-6">
+        <div class="input-group">
+            <div class="input-group-text">Fisioterapeuta</div>
+            <input
+                name="FisioterapeutaFiltro"
+                class="form-control"
+                list="FisioterapeutaFiltro"
+                [(ngModel)]="horarioFiltro.idEmpleado.idPersona"
+            />
+            <datalist id="FisioterapeutaFiltro">
+                <option *ngFor="let f of fisioterapeutas" [value]="f.idPersona">
+                    {{ f.nombre }} {{ f.apellido }}
+                </option>
+            </datalist>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-end mb-4">
+    <button class="btn btn-primary" (click)="clickFiltrar()">Filtrar</button>
+    <button class="btn btn-outline-primary mx-3" (click)="clickLimpiar()">
+        Limpiar filtros
+    </button>
+</div>

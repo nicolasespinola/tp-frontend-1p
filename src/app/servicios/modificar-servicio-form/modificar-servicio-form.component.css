@@ -1,0 +1,9 @@
+.botonAccion {
+    color: blue;
+    cursor: pointer;
+    text-align: center;
+}
+
+.botonAccion:hover {
+    text-decoration: underline;
+}

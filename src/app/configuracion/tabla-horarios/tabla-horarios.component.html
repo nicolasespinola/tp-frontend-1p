@@ -1,0 +1,22 @@
+<div *ngIf="horarios.length > 0" class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>Día</td>
+                <td>Hora Inicio</td>
+                <td>Hora Cierre</td>
+                <td>Intervalos</td>
+                <td>Fisioterapeuta</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let h of horarios">
+                <th>{{ h.dia | getDiaFormateado }}</th>
+                <td>{{ h.horaAperturaCadena | getHoraFormateda }}</td>
+                <td>{{ h.horaCierreCadena | getHoraFormateda }}</td>
+                <td>{{ h.intervaloMinutos }} mins</td>
+                <td>{{ h.idEmpleado.nombre + " " + h.idEmpleado.apellido }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,87 @@
+<div class="modal-header">
+  <h4 class="modal-title">Agregar Ficha Clínica</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cerrar')"></button>
+</div>
+<div class="modal-body">
+  <form class="container-fluid">
+    <!-- Categorias -->
+    <div class="row">
+      <div class="col">
+        <label class="form-label">Categoría*</label>
+        <select class="form-control" name="idCategoria" (change)="filtrarTipoProducto()"
+                [(ngModel)]="fichaClinica.idTipoProducto.idCategoria.idCategoria">
+          <option disabled selected >Seleccione una categoría</option>
+          <option *ngFor="let cat of categorias" [value]="cat.idCategoria">{{cat.descripcion}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label class="form-label">Tipo de producto*</label>
+        <select class="form-select"
+                name="tipoProducto"
+                required
+                [(ngModel)]="fichaClinica.idTipoProducto.idTipoProducto"
+        >
+          <option disabled selected>Seleccione un tipo de producto</option>
+          <option *ngFor="let tipo of tipoProductosFiltrado"
+                  [value]="tipo.idTipoProducto">{{tipo.descripcion}}</option>
+        </select>
+      </div>
+    </div>
+    <!-- Empleado y cliente -->
+    <div class="row">
+      <div class="col">
+        <label class="form-label">Empleado*</label>
+        <input class="form-control"
+               name="empleado"
+               list="listaEmpleados"
+               [(ngModel)]="fichaClinica.idEmpleado.idPersona">
+        <datalist id="listaEmpleados">
+          <option *ngFor="let p of empleados" [value]="p.idPersona">{{p.nombre}} {{p.apellido}}</option>
+        </datalist>
+      </div>
+      <div class="col">
+        <label class="form-label">Cliente*</label>
+        <input class="form-control"
+               name="cliente"
+               list="listaCliente"
+               [(ngModel)]="fichaClinica.idCliente.idPersona">
+        <datalist id="listaCliente">
+          <option *ngFor="let p of pacientes" [value]="p.idPersona">{{p.nombre}} {{p.apellido}}</option>
+        </datalist>
+      </div>
+    </div>
+    <!-- Motivo y Diagnostico -->
+    <div class="row">
+      <div class="col">
+        <label class="form-label">Motivo*</label>
+        <textarea class="form-control"
+                  rows="3"
+                  required
+                  [(ngModel)]="fichaClinica.motivoConsulta"
+                  name="motivo"></textarea>
+      </div>
+      <div class="col">
+        <label class="form-label">Diagnostico*</label>
+        <textarea class="form-control"
+                  rows="3"
+                  required
+                  [(ngModel)]="fichaClinica.diagnostico"
+                  name="diagnostico"></textarea>
+      </div>
+    </div>
+    <!-- Observación -->
+    <div class="row">
+      <div class="col">
+        <label class="form-label">Observación</label>
+        <input type="text"
+               class="form-control"
+               [(ngModel)]="fichaClinica.observacion"
+               name="observacion">
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button (click)="agregar()" class="btn btn-primary m-3">Guardar</button>
+  <button (click)="activeModal.close('Cancelar')" class="btn btn-secondary m-3">Cancelar</button>
+</div>

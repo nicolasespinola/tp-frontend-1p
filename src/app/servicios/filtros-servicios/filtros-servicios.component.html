@@ -1,0 +1,70 @@
+<!-- Filtros de Fecha -->
+<div class="row my-3">
+    <div class="col">
+        <div class="input-group">
+            <div class="input-group-text">Fecha desde</div>
+            <input type="date" name="fechaDesde" class="form-control" [(ngModel)]="ejemplo.fechaDesdeCadena">
+        </div>
+    </div>
+    <div class="col">
+        <div class="input-group">
+            <div class="input-group-text">Fecha hasta</div>
+            <input type="date" name="fechaHasta" class="form-control" [(ngModel)]="ejemplo.fechaHastaCadena">
+        </div>
+    </div>
+</div>
+<!-- Filtro empleado y cliente -->
+<div class="row my-3">
+    <div class="col">
+        <div class="input-group">
+            <div class="input-group-text">Empleado</div>
+            <input name="empleadoFiltro" class="form-control" list="listaEmpleadosFiltro" [(ngModel)]="ejemplo.idEmpleado.idPersona">
+            <datalist id="listaEmpleadosFiltro">
+                <option *ngFor="let p of empleados" [value]="p.idPersona">{{p.nombre}} {{p.apellido}}</option>
+            </datalist>
+        </div>
+    </div>
+    <div class="col">
+        <div class="input-group">
+            <div class="input-group-text">Cliente</div>
+            <input name="clienteFiltro" class="form-control" list="listaClientesFiltro" [(ngModel)]="ejemplo.idFichaClinica.idCliente.idPersona">
+            <datalist id="listaClientesFiltro">
+                <option *ngFor="let p of clientes" [value]="p.idPersona">{{p.nombre}} {{p.apellido}}</option>
+            </datalist>
+        </div>
+    </div>
+</div>
+<!-- Filtros de categoría y subcategoría -->
+<div class="row my-3">
+    <div class="col">
+        <div class="input-group">
+            <div class="input-group-text">Categoría</div>
+            <input name="categoriaFiltro" class="form-control"
+                   list="listaCategoriaFiltro" [(ngModel)]="ejemplo.idFichaClinica.idTipoProducto.idCategoria.idCategoria">
+            <datalist id="listaCategoriaFiltro">
+                <option *ngFor="let c of categorias" [value]="c.idCategoria">{{c.descripcion}}</option>
+            </datalist>
+        </div>
+    </div>
+    <div class="col">
+        <div class="input-group">
+            <div class="input-group-text">Subcategoría</div>
+            <input name="subcategoriaFiltro" class="form-control" list="listaSubcategoriaFiltro"
+                   [(ngModel)]="ejemplo.idFichaClinica.idTipoProducto.idTipoProducto">
+            <datalist id="listaSubcategoriaFiltro">
+                <option *ngFor="let s of subcategorias" [value]="s.idTipoProducto">{{s.descripcion}}</option>
+            </datalist>
+        </div>
+    </div>
+</div>
+<!-- Botones de filtro -->
+<div class="row my-3">
+    <div class="col-sm-6">
+
+    </div>
+    <div class="col-sm-6">
+        <button class="btn btn-success" (click)="onCrearServicio.emit()">Crear servicio</button>
+        <button class="btn btn-primary mx-3" (click)="ejecutarFiltro()">Filtrar servicios</button>
+        <button class="btn btn-secondary mx-3" (click)="limpiarFiltros()">Limpiar filtros</button>
+    </div>
+</div>

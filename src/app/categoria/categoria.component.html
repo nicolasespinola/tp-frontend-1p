@@ -1,0 +1,172 @@
+<div class="d-flex flex-column align-items-center container">
+    <div style="height: 120px; width: 800px">
+        <div
+            class="d-flex w-100 h-100 form-group justify-content-between align-items-center"
+        >
+            <h3 class="mb-1">Categorias</h3>
+            <button
+                type="button"
+                class="btn btn-outline-primary"
+                (click)="open(agregar)"
+            >
+                Agregar
+            </button>
+        </div>
+    </div>
+    <div class="d-flex w-100 form-group justify-content-center"></div>
+    <div class="h-auto px-5 w-75" *ngIf="categorias.length > 0">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <td>Codigo</td>
+                    <td>Descripcion</td>
+                    <td></td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr
+                    *ngFor="
+                        let p of categorias
+                            | slice: (page - 1) * pageSize:page * pageSize
+                    "
+                >
+                    <td>{{ p.idCategoria }}</td>
+                    <td>{{ p.descripcion }}</td>
+                    <td>
+                        <button
+                            type="button"
+                            class="btn btn-outline-primary"
+                            (click)="openWithParams(editar, p.idCategoria)"
+                        >
+                            Editar
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary"
+                            (click)="openWithParams(borrar, p.idCategoria)"
+                        >
+                            Borrar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ngb-pagination
+        [collectionSize]="categorias.length"
+        [pageSize]="pageSize"
+        [(page)]="page"
+        [directionLinks]="false"
+    ></ngb-pagination>
+    <div *ngIf="categorias.length == 0">
+        <p>No hay categorias que cumplan con la búsqueda.</p>
+    </div>
+</div>
+
+<ng-template #agregar let-modal>
+    <form
+        class="w-50"
+        [formGroup]="categoriaInput"
+        (ngSubmit)="cargarCategoria()"
+    >
+        <div class="modal-header">
+            <h3 class="mb-1">Agregar Categoria</h3>
+        </div>
+        <div class="modal-body">
+            <label>Descripcion</label>
+            <input
+                type="text"
+                class="form-control"
+                formControlName="descripcion"
+            />
+        </div>
+        <div class="modal-footer">
+            <button
+                type="submit"
+                (click)="close(agregar)"
+                class="btn btn-outline-primary"
+            >
+                Agregar
+            </button>
+            <button
+                type="button"
+                (click)="close(agregar)"
+                class="btn btn-outline-secondary"
+            >
+                Cancelar
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #editar let-modal>
+    <form
+        class="w-50"
+        [formGroup]="categoriaInput"
+        (ngSubmit)="actualizarCategoria()"
+    >
+        <div class="modal-header">
+            <h3 class="mb-1">Editar Categoria</h3>
+        </div>
+        <div class="modal-body">
+            <label>Descripcion</label>
+            <input
+                type="number"
+                class="form-control"
+                hidden
+                formControlName="idCategoria"
+            />
+            <input
+                type="text"
+                class="form-control"
+                formControlName="descripcion"
+            />
+        </div>
+        <div class="modal-footer">
+            <button
+                type="submit"
+                (click)="close(editar)"
+                class="btn btn-outline-primary"
+            >
+                Aceptar
+            </button>
+            <button
+                type="button"
+                (click)="close(editar)"
+                class="btn btn-outline-secondary"
+            >
+                Cancelar
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #borrar let-modal>
+    <form
+        class="w-50"
+        [formGroup]="categoriaInput"
+        (ngSubmit)="borrarCategoria()"
+    >
+        <div class="modal-header">
+            <h3 class="mb-1">Eliminar Categoria</h3>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+            <button
+                type="submit"
+                (click)="close(borrar)"
+                class="btn btn-outline-primary"
+            >
+                Aceptar
+            </button>
+            <button
+                type="button"
+                (click)="close(borrar)"
+                class="btn btn-outline-secondary"
+            >
+                Cancelar
+            </button>
+        </div>
+    </form>
+</ng-template>

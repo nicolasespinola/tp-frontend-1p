@@ -1,0 +1,87 @@
+<div class="modal-header">
+    <h4 class="modal-title">Modificar Ficha Clínica</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cerrar')"></button>
+</div>
+<div class="modal-body">
+    <form class="container-fluid">
+        <!-- Fecha -->
+        <div class="row my-3">
+            <div class="col">
+                <label class="form-label">Fecha</label>
+                <input class="form-control" [value]="fichaOrigen.fechaHora"
+                       readonly
+                       name="fecha">
+            </div>
+        </div>
+        <!-- Empleado y cliente -->
+        <div class="row my-3">
+            <div class="col">
+                <label class="form-label">Empleado</label>
+                <input class="form-control" [value]="fichaOrigen.idEmpleado.nombreCompleto"
+                       readonly
+                       name="empleado">
+            </div>
+            <div class="col">
+                <label class="form-label">Cliente</label>
+                <input class="form-control" [value]="fichaOrigen.idCliente.nombreCompleto"
+                       readonly
+                       name="cliente">
+            </div>
+        </div>
+        <!-- Motivo y Diagnostico -->
+        <div class="row my-3">
+            <div class="col">
+                <label class="form-label">Motivo</label>
+                <textarea class="form-control" [value]="fichaOrigen.motivoConsulta"
+                          rows="3"
+                          readonly
+                          name="motivo"></textarea>
+            </div>
+            <div class="col">
+                <label class="form-label">Diagnostico</label>
+                <textarea class="form-control" [value]="fichaOrigen.diagnostico"
+                          rows="3"
+                          readonly
+                          name="diagnostico"></textarea>
+            </div>
+        </div>
+        <!-- Observación -->
+        <div class="row my-3">
+            <div class="col">
+                <label class="form-label">Observación</label>
+                <input type="text"
+                       class="form-control"
+                       [(ngModel)]="fichaClinica.observacion"
+                       name="observacion">
+            </div>
+        </div>
+        <!-- Servicios -->
+        <div class="row my-3" *ngIf="servicios.length > 0">
+            <div class="col">
+                <label class="form-label">Servicios creados a partir de esta ficha</label>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Presupuesto</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let serv of servicios">
+                        <td>{{serv.fechaHora}}</td>
+                        <td>{{serv.presupuesto}}</td>
+                        <td><span class="botonAccion" (click)="modificarServicio(serv)">Ver / Editar</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <!-- Guardar/Cancelar -->
+    <button (click)="modificar()" class="btn btn-primary m-3">Guardar</button>
+    <button (click)="activeModal.close('Cancelar')" class="btn btn-secondary m-3">Cancelar</button>
+</div>
+

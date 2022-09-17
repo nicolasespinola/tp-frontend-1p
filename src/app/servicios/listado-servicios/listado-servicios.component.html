@@ -1,0 +1,36 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>ID Ficha</th>
+                <th>Fecha Ficha</th>
+                <th>Profesional</th>
+                <th>Cliente</th>
+                <th>Categoría</th>
+                <th>Subcategoría</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let s of servicios">
+                <td>{{ s.fechaHora }}</td>
+                <td>{{ s.idFichaClinica.idFichaClinica }}</td>
+                <td>{{ s.idFichaClinica.fechaHora }}</td>
+                <td>{{ s.idFichaClinica.idEmpleado.nombreCompleto }}</td>
+                <td>{{ s.idFichaClinica.idCliente.nombreCompleto }}</td>
+                <td>
+                    {{
+                        s.idFichaClinica.idTipoProducto.idCategoria.descripcion
+                    }}
+                </td>
+                <td>{{ s.idFichaClinica.idTipoProducto.descripcion }}</td>
+                <td>
+                    <span class="botonAccion" (click)="onVerServicio.emit(s)"
+                        >Ver / Editar</span
+                    >
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,116 @@
+<div class="d-flex flex-column align-items-center container">
+    <form class="w-50" [formGroup]="input" (ngSubmit) = "onSubmit()">
+        <div class="h-auto px-5 py-5">
+            <h3 class="mb-1">Presentación de Productos</h3>
+            <div class="form-group mb-3">
+                <input id="texto" type="text" class="form-control" formControlName="texto" placeholder="Nombre">
+            </div>
+            <select class="form-control" placeholder="Tipo" formControlName="idTipoProducto">
+                <option *ngFor="let t of tipos" [value]="t.idTipoProducto">{{t.descripcion}}</option>
+              </select>
+            <div class="d-flex w-100 form-group justify-content-center">
+                <button class="btn btn-primary me-2" type="submit" >Buscar</button>
+                <button type="button" class="btn btn-outline-primary" (click)="open(content)">Agregar</button>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex w-100 form-group justify-content-center">
+      
+    </div>
+    <div class="h-auto px-5 w-75" *ngIf="presentaciones.length>0">
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+            <td>Id</td>
+            <td>Nombre</td>
+            <td>Tipo</td>
+            <td>Precio</td>
+            <td></td>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <tr *ngFor="let p of presentaciones | slice: (page-1) * pageSize : page * pageSize">
+              <td>{{p.idPresentacionProducto}}</td>
+              <td>{{p.nombre}}</td>
+              <td>{{p.idProducto.idTipoProducto.descripcion}}</td>
+              <td>{{p.existenciaProducto.precioVenta}}</td>
+              <td>
+                <button type="button" class="btn btn-outline-primary" (click)="openWithParams(editar, p)" >Editar</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="openWithParams(borrar, p)">Borrar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ngb-pagination [collectionSize]="presentaciones.length" [pageSize]="pageSize" [(page)]="page" [directionLinks]="false"></ngb-pagination>
+      </div>
+      <div *ngIf="presentaciones.length==0"><p> No hay personas que cumplan con la búsqueda. </p></div>
+      
+</div>
+
+<ng-template #content let-modal>
+    <form class="w-50" [formGroup]="presentacionInput" (ngSubmit) = "cargarPresentacion()">
+      <div class="modal-header">
+        
+      </div>
+      <div class="modal-body">
+        
+          <label>Nombre</label>
+          <input type="text" class="form-control" formControlName="nombre">
+          <label>Código</label>
+          <input type="text" class="form-control" formControlName="codigo">
+          <label>Producto</label>
+          <select class="form-control" placeholder="Producto" formControlName="idProducto">
+            <option *ngFor="let pro of productos" [value]="pro.idProducto">{{pro.idTipoProducto.descripcion}}</option>
+          </select>
+          <label>Precio</label>
+          <input type="text" placeholder="Precio" class="form-control" formControlName="existenciaProducto">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" (click)="close(content)" class="btn btn-outline-primary">Agregar</button>
+        <button type="button" (click)="close(content)" class="btn btn-outline-secondary">Cancelar</button>
+      </div>
+    </form>
+  </ng-template>
+  
+  <ng-template #editar let-modal>
+    <form class="w-50" [formGroup]="presentacionEditar" (ngSubmit) = "actualizarPresentacion()">
+      <div class="modal-header">
+        <h3 class="mb-1">Editar Presentación</h3>
+      </div>
+      <div class="modal-body">
+          
+          <input type="number" class="form-control" hidden formControlName="idPresentacionProducto">
+          <label>Nombre</label>
+          <input type="text" class="form-control" formControlName="nombre">
+          <label>Código</label>
+          <input type="text" class="form-control" formControlName="codigo">
+          <label>Producto</label>
+          <select class="form-control" placeholder="Producto" formControlName="idProducto">
+            <option *ngFor="let pro of productos" [value]="pro.idProducto">{{pro.idTipoProducto.descripcion}}</option>
+          </select>
+          <label>Precio</label>
+          <input type="text" placeholder="Precio" class="form-control" formControlName="existenciaProducto">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" (click)="close(editar)" class="btn btn-outline-primary">Aceptar</button>
+        <button type="button" (click)="close(editar)" class="btn btn-outline-secondary">Cancelar</button>
+      </div>
+    </form>
+  </ng-template>
+  
+  <ng-template #borrar let-modal>
+    <form class="w-50" [formGroup]="presentacionEditar" (ngSubmit) = "borrarPresentacion()">
+      <div class="modal-header">
+        <h3 class="mb-1">Eliminar Presentación</h3>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="submit" (click)="close(borrar)" class="btn btn-outline-primary">Aceptar</button>
+        <button type="button" (click)="close(borrar)" class="btn btn-outline-secondary">Cancelar</button>
+      </div>
+    </form>
+    </ng-template>

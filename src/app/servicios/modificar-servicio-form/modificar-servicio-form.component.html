@@ -1,0 +1,126 @@
+<div class="modal-header">
+    <h4 class="modal-title">Ver/Modificar Servicio</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cerrar')"></button>
+</div>
+<div class="modal-body">
+    <form class="container-fluid">
+        <!-- Fechas  y Observación-->
+        <div class="row">
+            <div class="col">
+                <label class="form-label">Fecha</label>
+                <input type="date" class="form-control" [value]="servicio | getFechaFromServicio" readonly/>
+            </div>
+            <div class="col">
+                <label class="form-label">Observación</label>
+                <input class="form-control" name="obs" [(ngModel)]="servicio.observacion" readonly/>
+            </div>
+        </div>
+
+        <!-- Fichas -->
+        <div class="row my-3">
+            <h4>Ficha Clínica</h4>
+            <hr/>
+        </div>
+        <div class="row my-3">
+            <div class="col">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID Ficha</th>
+                        <th>Fecha</th>
+                        <th>Categoría</th>
+                        <th>Subcategoría</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngIf="servicio !== undefined">
+                        <td>{{servicio.idFichaClinica.idFichaClinica}}</td>
+                        <td>{{servicio.idFichaClinica.fechaHora}}</td>
+                        <td>{{servicio.idFichaClinica.idTipoProducto.idCategoria.descripcion}}</td>
+                        <td>{{servicio.idFichaClinica.idTipoProducto.descripcion}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Detalles Fichas -->
+        <div class="row my-3">
+            <h4>Detalles</h4>
+            <hr/>
+        </div>
+        <div class="row my-3">
+            <div class="col">
+                <label class="form-label">Categoría*</label>
+                <select name="categoria" (change)="onSeleccionarCategoria($event)" class="form-select">
+                    <option value="-1" [defaultSelected]="true">Seleccionar Categoría</option>
+                    <option *ngFor="let c of categorias" [value]="c.idCategoria">{{c.descripcion}}</option>
+                </select>
+            </div>
+            <div class="col">
+                <label class="form-label">Subcategoría*</label>
+                <select name="subcategoria" (change)="onSeleccionarSubcategoria($event)" class="form-select">
+                    <option value="-1" [defaultSelected]="true">Seleccionar Subcategoría</option>
+                    <option *ngFor="let sub of subcategorias" [value]="sub.idTipoProducto">{{sub.descripcion}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col">
+                <label class="form-label">Tipo de Servicio*</label>
+                <select name="presentacion" class="form-select"
+                        (change)="onSeleccionarPresentacionProducto($event)">
+                    <option value="-1" [defaultSelected]="true">Seleccionar tipo de servicio</option>
+                    <option *ngFor="let pre of presentaciones"
+                            [value]="pre.idPresentacionProducto">{{pre.nombre}}</option>
+                </select>
+            </div>
+            <div class="col" >
+                <label class="form-label">Precio</label>
+                <input readonly class="form-control"
+                       [value]="existenciaProducto.precioVenta"/>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col">
+                <label class="form-label">Cantidad</label>
+                <input type="number" class="form-control" name="cantidad" [formControl]="cantidad"/>
+            </div>
+            <div class="col">
+                <label class="form-label">Acciones</label>
+                <button (click)="agregarDetalle()"
+                        [disabled]="cantidad.value < 1 || presentacion.existenciaProducto === undefined"
+                    class="btn btn-primary form-control">Agregar detalle</button>
+            </div>
+        </div>
+        <div class="row my-3">
+            <div class="col">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID Detalle</th>
+                        <th>Presentación</th>
+                        <th>Precio Unitario</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let detalle of detallesServicio">
+                        <td>{{detalle.idServicioDetalle}}</td>
+                        <td>{{detalle.idPresentacionProducto.nombre}}</td>
+                        <td>{{detalle.idPresentacionProducto.existenciaProducto.precioVenta}}</td>
+                        <td>{{detalle.idPresentacionProducto.existenciaProducto.cantidad}}</td>
+                        <td>{{detalle.idPresentacionProducto.existenciaProducto.precioVenta
+                            * detalle.idPresentacionProducto.existenciaProducto.cantidad}}</td>
+                        <td><a class="botonAccion" (click)="eliminarDetalle(detalle.idServicioDetalle)">Eliminar</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button (click)="activeModal.close('Cancelar')" class="btn btn-secondary m-3">Cancelar</button>
+</div>

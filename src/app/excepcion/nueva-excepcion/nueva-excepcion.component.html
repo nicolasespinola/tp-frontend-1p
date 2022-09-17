@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <h4 class="modal-title">Agregar nueva excepción</h4>
+    <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="activeModal.dismiss('Cerrar')"
+    ></button>
+</div>
+<div class="modal-body">
+    <div class="mb-3">
+        <label for="fisioterapeuta" class="form-label">Fisioterapeuta</label>
+        <input
+            list="FisioterapeutaFiltro"
+            class="form-control"
+            id="fisioterapeuta"
+            [(ngModel)]="fisioterapeutaSeleccionado"
+        />
+        <datalist id="FisioterapeutaFiltro">
+            <option *ngFor="let f of fisioterapeutas" [value]="f.idPersona">
+                {{ f.nombreCompleto }}
+            </option>
+        </datalist>
+    </div>
+    <div class="mb-3">
+        <div class="row align-items-end">
+            <div class="col-sm mb-1">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input
+                    type="date"
+                    class="form-control"
+                    id="fecha"
+                    [(ngModel)]="fecha"
+                />
+            </div>
+            <div class="col-sm">
+                <label for="check" class="form-label me-2">¿Habilitar?</label>
+                <input
+                    [(ngModel)]="habilitar"
+                    type="checkbox"
+                    id="check"
+                    class="form-check-input"
+                />
+            </div>
+        </div>
+    </div>
+    <div *ngIf="habilitar">
+        <div class="mb-3">
+            <label class="form-label">Hora de inicio</label>
+            <input
+                type="time"
+                class="form-control"
+                [(ngModel)]="horaApertura"
+            />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Hora de fin</label>
+            <input type="time" class="form-control" [(ngModel)]="horaCierre" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Intervalo (minutos)</label>
+            <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="intervaloMinutos"
+            />
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary me-2" (click)="submit()">Agregar</button>
+        <button
+            (click)="activeModal.close('Cancelar')"
+            class="btn btn-outline-danger"
+        >
+            Cancelar
+        </button>
+    </div>
+</div>

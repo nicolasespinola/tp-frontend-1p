@@ -1,0 +1,22 @@
+<div class="container px-5 py-5">
+    <!-- Titulo -->
+    <div class="d-flex flex-wrap justify-content-between mb-5">
+        <h4>Configuración de horario de atención</h4>
+        <div class="d-flex">
+            <button
+                class="btn btn-success me-2"
+                (click)="abrirFormularioAgregar()"
+            >
+                <i class="bi bi-plus-lg me-2"></i>Nueva reserva
+            </button>
+            <button class="btn btn-warning me-2" routerLink="excepciones">
+                <i class="bi bi-exclamation-diamond me-2"></i>Excepciones
+            </button>
+        </div>
+    </div>
+    <!-- Filtros de Tabla -->
+    <app-filtros-horarios (onFiltrar)="filtrar($event)"> </app-filtros-horarios>
+    <!-- Opciones -->
+    <!-- Tabla -->
+    <app-tabla-horarios [horarios]="horarios"> </app-tabla-horarios>
+</div>
